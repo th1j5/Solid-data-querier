@@ -20,7 +20,10 @@ const IoTGraph = ({webId}: Props) => {
     return(
         <IoTGraphWrapper>
             <IoTGraphContainer>
-                <Header><p>{t('iot-graph.explanation')}</p></Header>
+                <Header>
+                    <h3>Historical data visualization</h3>
+                    <p>{t('iot-graph.explanation')}</p>
+                </Header>
                 <Graph></Graph>
             </IoTGraphContainer>
         </IoTGraphWrapper>
