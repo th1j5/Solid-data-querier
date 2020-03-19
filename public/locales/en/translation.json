@@ -49,6 +49,7 @@
     "welcome": "Welcome",
     "logOut": "Log out",
     "profile": "Profile",
+    "iot-graph": "Iot Graph",
     "formModelRender": "Form Model Render",
     "formModelConvert": "Form Model Convert",
     "text-editor": "Text Editor",
@@ -243,5 +244,8 @@
     "load": "Load",
     "save": "Save",
     "grantAccess": "Grant Access"
+  },
+  "iot-graph": {
+    "explanation": "This page allows you to visualize the historical sensor data saved in your solid pod. -- Work in progress"
   }
 }

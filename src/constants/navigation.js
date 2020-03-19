@@ -25,6 +25,12 @@ export const NavigationItems = [
     icon: '/img/icon/files.svg',
     label: 'navBar.text-editor',
     to: '/text-editor'
+  },
+  {
+    id: 'iot-graph',
+    icon: '/img/icon/things.svg',
+    label: 'navBar.iot-graph',
+    to: '/iot-graph'
   }
 ];
 
