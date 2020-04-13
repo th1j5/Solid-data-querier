@@ -1,0 +1,97 @@
+import SolidAuth from 'solid-auth-client';
+import {graph, Fetcher, parse, Namespace} from 'rdflib';
+
+// Introducing our namespaces (Used for querying the data!)
+var LWM2M = Namespace("https://florsanders.inrupt.net/public/ontologies/omalwm2m.ttl#");    // Self-published omalwm2m ontology
+var RDF = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");                         // Used mainly for RDF('type')
+var XSD = Namespace("http://www.w3.org/2001/XMLSchema#");                                   // Used for its units
+
+// Function which creates store, fetches the database and saves it to the store
+export function retrieveStore(url){
+    const store = graph();
+    const fetcher = new Fetcher(store);
+    return new Promise((resolve, reject) => {
+        // Check if the user is actually logged in
+        SolidAuth.trackSession(session => {
+            if(!!session){
+                // We're logged in! --> Retrieving the document
+                fetcher.nowOrWhenFetched(url, (ok, msg, response) => {
+                    if(!ok) {
+                        reject(`Failed fetching: ${msg}`);
+                    } else {
+                        // Fetch returned ok --> Parse the data to the store
+                        try {
+                            parse(response.responseText, store, url, 'text/turtle');
+                            // Parsing succesful --> Return store and fetcher
+                            resolve({store, fetcher});
+                        } catch(err) {
+                            reject(`Failed parsing: ${err.message}`)
+                        }
+                    }
+                });
+            } else {
+                reject('Not logged in!')
+            }
+        }).catch(err => reject(`Error: ${err.message}`));
+    })
+}
+
+// Function which fetches devices from the store
+export function getDevices(store){
+    // Query the store for the devices, map the results to the actual things we're looking for
+    var quads = store.match(null, RDF('type'), LWM2M('Device'), null);
+    var devices = quads.map(quad => quad.subject);
+    return devices;
+}
+
+// Function which fetches the objects contained in the device
+export function getObjects(store, device){
+    // Query the store for the objects
+    var quads = store.match(device, LWM2M('contains'), null, null);
+    var objects = quads.map(quad => quad.object)
+    return objects
+}
+
+// Function which fetches the resources organized into a given object
+export function getResources(store, object){
+    // Query the store for the resources
+    var quads = store.match(object, LWM2M('consistsOf'), null, null);
+    var resources = quads.map(quad => quad.object)
+    return resources
+}
+
+
+export function getData(store, resources){
+    // Sensordata is characterised by timestamp & value, while otherdata will contain all resources with only 1 measurement (only latest value)
+    var sensorData = [];
+    var data = [];
+    // Filtering the Sensorvalue resources from all others (these form a historical dataset)
+    for(var i = 0; i < resources.length; i++){
+        // Obtaining the resource type
+        var quads = store.match(resources[i], RDF('type'), null, null);
+        // We don't need to know it's a resource instance! Only its type (Throwing away link base as well)
+        var type = quads.filter(quad => quad.object.value !== LWM2M('ResourceInstance').value)[0].object.value.slice(LWM2M().value.length);
+        // Obtaining the resource value
+        var value = store.match(resources[i], LWM2M('hasValue'), null, null)[0].object.value;
+        if(type === 'SensorValue'){
+            // Getting the timestamp
+            var timestamp = store.match(resources[i], LWM2M('hasTimeStamp'), null, null)[0].object.value;
+            sensorData.push({timestamp, value});
+        } else {
+            // Pushing the other data to the array
+            data.push({type, value});
+        }
+    }
+    // If by now the sensorData array isn't empty, we'll add it to the data array
+    if(sensorData.length != 0){
+        // Making sure the data is sorted by date!
+        data.push({type:'SensorValues', value:sortByDate(sensorData)});
+    }
+    return data
+}
+
+function sortByDate(sensorData){
+    return sensorData.sort((data1, data2) => {
+        return (data1.timestamp > data2.timestamp) ? 1 : -1;
+    });
+}

@@ -37,6 +37,8 @@ export const Header = styled.div`
   }
   p {
     color: white;
+    padding: 0;
+    margin: 3px;
   }
   .edit-button {
     background: rgba(255, 255, 255, 0.1);

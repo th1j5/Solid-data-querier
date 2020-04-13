@@ -17,13 +17,13 @@ export class Textinput extends React.Component {
     onSubmit = (e) => {
         e.preventDefault();
         this.props.onSubmit(this.state.url);
-        this.setState({url: ''});
     }
 
     // Visual component of our application, which should be shown (textbox + subit button)
     render(){
         return(
             <TextinputWrapper>
+                <p>Insert database URL:</p>
                 <form onSubmit = {this.onSubmit} style = {{display: 'flex'}}>
                     <input
                         type='text'

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
 
-export const TextinputWrapper = styled.div`
+export const Selectinputwrapper = styled.div`
   padding: 15px 25px;
 `

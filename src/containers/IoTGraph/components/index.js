@@ -1,4 +1,4 @@
 import Graph from './Graph';
-import {Textinput} from './Input';
+import {Textinput, Selectinput} from './Input';
 
-export {Graph, Textinput};
+export {Graph, Textinput, Selectinput};
