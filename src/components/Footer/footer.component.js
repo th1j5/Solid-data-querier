@@ -17,10 +17,10 @@ const Footer = (props: Props) => {
       <section className="solid-footer__content">
         <div className="solid-footer__content--copyright">
           <ul>
-            <li>© {process.env.REACT_APP_COMPANY_NAME}</li>
+            <li>&copy; inrupt Inc.</li>
+            <li>&copy; Ghent University</li>
             <li>
-              {t('footer.version')}
-              {''} <span className="build-value">{process.env.REACT_APP_VERSION}</span>
+              {'1.0.0'}
             </li>
           </ul>
         </div>
@@ -39,12 +39,12 @@ const Footer = (props: Props) => {
             </li>
             <li>
               <a
-                href="https://github.com/inrupt/solid-style-guide"
+                href="https://github.ugent.be/fpsander/Solid-IoT"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <FontAwesomeIcon className="link-icon" icon={githubIconDef} />
-                solid-style-guide
+                solid-iot
               </a>
             </li>
           </ul>

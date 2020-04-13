@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { successToaster, errorToaster } from '@utils';
 import ldflex from '@solid/query-ldflex';
 import { AccessControlList } from '@inrupt/solid-react-components';
-import {Graph} from './components';
+import {Graph, Textinput} from './components';
 import{
     IoTGraphWrapper,
     IoTGraphContainer,
@@ -13,21 +13,24 @@ import{
 } from './iot-graph.style';
 
 type Props = {webId: String};
-
-const IoTGraph = ({webId}: Props) => {
-    const { t } = useTranslation();
-    console.log(webId);
-    return(
-        <IoTGraphWrapper>
-            <IoTGraphContainer>
-                <Header>
-                    <h3>Historical data visualization</h3>
-                    <p>{t('iot-graph.explanation')}</p>
-                </Header>
-                <Graph></Graph>
-            </IoTGraphContainer>
-        </IoTGraphWrapper>
-    );
-};
+export class IoTGraph extends React.Component{Props} {
+    componentDidMount(){
+        console.log(webId);
+    }
+    render(){
+        return(
+            <IoTGraphWrapper>
+                <IoTGraphContainer>
+                    <Header>
+                        <h3>Historical data visualization</h3>
+                        <p>This page allows you to visualize the historical sensor data saved in your solid pod. -- Work in progres</p>
+                    </Header>
+                    <Textinput></Textinput>
+                    <Graph></Graph>
+                </IoTGraphContainer>
+            </IoTGraphWrapper>
+        )
+    }
+}
 
 export default IoTGraph;

@@ -6,43 +6,13 @@ import {
   Login,
   Register,
   PageNotFound,
-  Welcome,
   RegistrationSuccess,
-  Profile,
-  GameList,
-  GamePage,
   FormModelConverter,
   FormModelRenderer,
-  TextEditor,
   IoTGraph
 } from './containers';
 
 const privateRoutes = [
-  {
-    id: 'welcome',
-    path: '/welcome',
-    component: Welcome
-  },
-  {
-    id: 'profile',
-    path: '/profile',
-    component: Profile
-  },
-  {
-    id: 'tictactoe',
-    path: '/tictactoe',
-    component: GameList
-  },
-  {
-    id: 'tictactoegame',
-    path: '/tictactoe/:gameId',
-    component: GamePage
-  },
-  {
-    id: 'text-editor',
-    path: '/text-editor',
-    component: TextEditor
-  },
   {
     id: 'formmodelconverter',
     path: '/formmodel/converter',
@@ -68,7 +38,7 @@ const Routes = () => (
         <NotLoggedInLayout component={Register} path="/register" exact />
         <NotLoggedInLayout path="/register/success" component={RegistrationSuccess} exact />
         <PublicLayout path="/404" component={PageNotFound} exact />
-        <Redirect from="/" to="/welcome" exact />
+        <Redirect from="/" to="/iot-graph" exact />
         <PrivateLayout path="/" routes={privateRoutes} />
         <Redirect to="/404" />
       </Switch>
