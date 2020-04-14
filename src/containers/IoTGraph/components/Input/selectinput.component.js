@@ -3,22 +3,15 @@ import {Selectinputwrapper} from './selectinput.style';
 
 
 export class Selectinput extends React.Component {
-    // Save contents of the textbox as application state
-    state = {
-        option: 'None'
-    }
-
     // Update the application state if the selection contents changes + pass it on to the master program
     onChange = (e) => {
-        this.setState({option: e.target.value}, () => {
-            let option = this.state.option;
-            if(option != 'None'){
-                option = this.props.options.filter(item => {
-                    return item.value === this.state.option;
-                })[0];
-            }
-            this.props.onSubmit(option);
-        });
+        let option = e.target.value;
+        if(option != 'None'){
+            option = this.props.options.filter(item => {
+                return item.value === option;
+            })[0];
+        }
+        this.props.onSubmit(option);
     }
 
     // Visual component of our application, which should be shown (textbox + subit button)
@@ -28,7 +21,7 @@ export class Selectinput extends React.Component {
                 <Selectinputwrapper>
                     <p>{this.props.label}:</p>
                     <form style = {{display: 'flex'}}>
-                        <select onChange={this.onChange} value={this.state.option}>
+                        <select onChange={this.onChange} value={this.props.option}>
                             <option value='None' key='NoneSelected'>Select an option...</option>>
                             {this.props.options.map((option) =>{
                                 return <option value={option.value} key={option.value}>{option.value}</option>
@@ -37,7 +30,8 @@ export class Selectinput extends React.Component {
                     </form>
                 </Selectinputwrapper>
             )
+        } else {
+            return(<p></p>);
         }
-        return(<p></p>)
     }
 }
