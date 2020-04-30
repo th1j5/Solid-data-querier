@@ -1,16 +1,8 @@
-type ProviderEntity = {
-  label: String,
-  image: String,
-  value: String,
-  registerLink: String,
-  description: String
-};
-
 export default class Provider {
   /*
    *  Function to get providers. This is to mimic the future provider registry
    */
-  static getIdentityProviders(): Array<ProviderEntity> {
+  static getIdentityProviders() {
     return [
       {
         id: 'inrupt',
