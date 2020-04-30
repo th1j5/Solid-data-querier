@@ -1,7 +1,7 @@
 import React from 'react';
 import { errorToaster } from '@utils';
-import {retrieveStore, getDevices, getObjects, getResources, getData} from './utils';
-import {Graph, Textinput, Selectinput, SecondaryData} from './components';
+import {retrieveStore, getDevices, getObjects, getResources, getData, getResourceTypes} from './utils';
+import {Visualize, Textinput, Selectinput} from './components';
 import{
     IoTGraphWrapper,
     IoTGraphContainer,
@@ -18,14 +18,15 @@ export class IoTGraph extends React.Component {
         device: 'None',
         objects: [],
         object: 'None',
-        sensordata: [],
-        otherdata: []
+        types: [],
+        type: 'None',
+        data: []
     }      
 
     // Callback function after the database URL is commited
     onReceiveURL = (url) => {
         // Save URL to the program state
-        this.setState({url, devices: [], objects: [], sensordata: [], otherdata: [], device: 'None', object: 'None'}, () => {
+        this.setState({url, devices: [], objects: [], data: [], device: 'None', object: 'None', type: 'None', types: []}, () => {
             // Fetch the database into a store
             retrieveStore(url).then(({store, fetcher}) => {
                 // Save the store and fetcher into the program state
@@ -48,30 +49,37 @@ export class IoTGraph extends React.Component {
                 var objects = getObjects(this.state.store, device);
                 this.setState({objects});
             } else {
-                this.setState({sensordata: [], otherdata: [], objects: [], object: 'None'}, () => {
-                    this.onReceiveObject(this.state.object);
-                });
+                this.setState({data: [], objects: [], object: 'None', type: 'None', types: []});
             }
         });
 
     }
 
-    // Callback function for when the object is pickecd from the dropdown
+    // Callback function for when the object is picked from the dropdown
     onReceiveObject = (object) => {
         this.setState({object}, () => {
             if(this.state.object !== 'None'){
                 // Obtaining the resources from the object
                 var resources = getResources(this.state.store, this.state.object);
-                // Getting the data out of the object
-                var data = getData(this.state.store, resources);
-                // Pushing the data to the local state
-                var sensordata = data.filter(data => data.type === 'SensorValues')[0];
-                var otherdata = data.filter(data => data.type !== 'SensorValues');
-                this.setState({sensordata, otherdata}, () =>{});
+                var types = getResourceTypes(this.state.store, resources);
+                this.setState({types});
             } else {
-                this.setState({sensordata: [], otherdata: []}, () => {});
+                this.setState({data: [], type: 'None', types: []}, () => this.onReceiveType('None'));
             }
         })
+    }
+
+    // Callback function for when the resource type is picked from the dropdown
+    onReceiveType = (type) => {
+        this.setState({type}, () => {
+            if(this.state.type !== 'None'){
+                console.log(this.state.type)
+                var data = getData(this.state.store, this.state.object, type);
+                this.setState({data});
+            } else {
+                this.setState({data: []});
+            }
+        });
     }
 
     render(){
@@ -87,8 +95,8 @@ export class IoTGraph extends React.Component {
                     <Textinput onSubmit = {this.onReceiveURL} default = {`https://${this.props.webId.split('/')[2]}/private/leshandata.ttl`}></Textinput>
                     <Selectinput onSubmit = {this.onReceiveDevice} options={this.state.devices} label="Pick a device" option={this.state.device.value || this.state.device}></Selectinput>
                     <Selectinput onSubmit = {this.onReceiveObject} options={this.state.objects} label="Pick an object" option={this.state.object.value || this.state.object}></Selectinput>
-                    <Graph sensordata = {this.state.sensordata} otherdata = {this.state.otherdata} object={this.state.object}></Graph>
-                    <SecondaryData otherdata = {this.state.otherdata}></SecondaryData>
+                    <Selectinput onSubmit = {this.onReceiveType} options={this.state.types} label="Pick a resource type" option={this.state.type}></Selectinput>
+                    <Visualize data = {this.state.data} object = {this.state.object} type = {this.state.type}></Visualize>
                 </IoTGraphContainer>
             </IoTGraphWrapper>
         )

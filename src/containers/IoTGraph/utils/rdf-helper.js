@@ -60,38 +60,45 @@ export function getResources(store, object){
     return resources
 }
 
+export function getResourceTypes(store, resources){
+    // Get types of all the resources
+    var types = resources
+        .map(resource => store.match(resource, RDF('type'), null, null).filter(quad => quad.object.value !== LWM2M('ResourceInstance').value)[0].object.value.slice(LWM2M().value.length))
+    types = [...new Set(types)];
+    return types;
+}
 
-export function getData(store, resources){
-    // Sensordata is characterised by timestamp & value, while otherdata will contain all resources with only 1 measurement (only latest value)
-    var sensorData = [];
-    var data = [];
-    // Filtering the Sensorvalue resources from all others (these form a historical dataset)
-    for(var i = 0; i < resources.length; i++){
-        // Obtaining the resource type
-        var quads = store.match(resources[i], RDF('type'), null, null);
-        // We don't need to know it's a resource instance! Only its type (Throwing away link base as well)
-        var type = quads.filter(quad => quad.object.value !== LWM2M('ResourceInstance').value)[0].object.value.slice(LWM2M().value.length);
-        // Obtaining the resource value
-        var value = store.match(resources[i], LWM2M('hasValue'), null, null)[0].object.value;
-        if(type === 'SensorValue'){
-            // Getting the timestamp
-            var timestamp = store.match(resources[i], LWM2M('hasTimeStamp'), null, null)[0].object.value;
-            sensorData.push({timestamp, value});
+function getResourcesWithType(store, object, type){
+    var resources = getResources(store, object).filter(resource => {
+        var resourceType = store.match(resource, RDF('type'), null, null).filter(quad => quad.object.value !== LWM2M('ResourceInstance').value)[0].object.value.slice(LWM2M().value.length);
+        return resourceType === type;
+    })
+    return resources;
+}
+
+export function getData(store, object, type){
+    var resources = getResourcesWithType(store, object, type);
+    // If timestamps are available this will be plotted, else it will just be printed as a list.
+    var data = resources.map(resource => {
+        var timestamp = store.match(resource, LWM2M('hasTimeStamp'), null, null)[0];
+        var value = store.match(resource, LWM2M('hasValue'), null, null)[0].object.value;
+        if(timestamp === undefined){
+            // No timestamp available, just getting value and getting out of here
+            return value
         } else {
-            // Pushing the other data to the array
-            data.push({type, value});
+            timestamp = timestamp.object.value;
+            return {timestamp, value}
         }
-    }
-    // If by now the sensorData array isn't empty, we'll add it to the data array
-    if(sensorData.length !== 0){
-        // Making sure the data is sorted by date!
-        data.push({type:'SensorValues', value:sortByDate(sensorData)});
-    }
-    return data
+    });
+    return sortByDate(data); 
 }
 
 function sortByDate(sensorData){
-    return sensorData.sort((data1, data2) => {
-        return (data1.timestamp > data2.timestamp) ? 1 : -1;
-    });
+    // Sort list of data by timestamp if they are available.
+    if(sensorData[0].timestamp !== undefined){
+        return sensorData.sort((data1, data2) =>  (data1.timestamp > data2.timestamp) ? 1 : -1);
+    } else {
+        return sensorData;
+    }
+    
 }

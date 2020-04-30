@@ -1,5 +1,4 @@
-import Graph from './Graph';
-import SecondaryData from './SecondaryData';
+import Visualize from './VisualizeData';
 import {Textinput, Selectinput} from './Input';
 
-export {Graph, SecondaryData, Textinput, Selectinput};
+export {Visualize, Textinput, Selectinput};

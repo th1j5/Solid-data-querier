@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { withAuthorization } from '@inrupt/solid-react-components';
 import { AuthNavBar, Footer } from '@components';
 import { permissionHelper } from '@utils';
@@ -23,12 +22,11 @@ const Content = styled.div`
 `;
 
 const PrivateLayout = ({ routes, webId, location, history, ...rest }) => {
-  const { t } = useTranslation();
   const errorMessages = {
-    message: t('appPermission.message'),
-    title: t('notifications.error'),
-    label: t('appPermission.link.label'),
-    href: t('appPermission.link.href')
+    message: "You don't have app permission",
+    title: "Error",
+    label: "LinkLabel",
+    href: "Linklink"
   };
   useEffect(() => {
     if (webId) {

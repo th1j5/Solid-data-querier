@@ -1,6 +1,5 @@
 /* eslint-disable constructor-super */
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { PageNotFoundWrapper, PageNotFoundContent } from './page-not-found.style';
 
@@ -9,16 +8,15 @@ import { PageNotFoundWrapper, PageNotFoundContent } from './page-not-found.style
  * to get back to the home/welcome page.
  */
 const PageNotFound = () => {
-  const { t } = useTranslation();
   return (
     <PageNotFoundWrapper>
       <PageNotFoundContent>
         <img src="/img/404.svg" alt="404" />
-        <h3>{t('notFound.title')}</h3>
-        <p>{t('notFound.content')}</p>
+        <h3>{'404 Page not found'}</h3>
+        <p>{"You seem to want something you can't get"}</p>
         <div>
           <Link to="/" className="ids-link">
-            {t('notFound.redirectButton')}
+            {'Go back home?'}
           </Link>
         </div>
       </PageNotFoundContent>

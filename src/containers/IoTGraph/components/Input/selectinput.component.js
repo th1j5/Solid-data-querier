@@ -8,7 +8,7 @@ export class Selectinput extends React.Component {
         let option = e.target.value;
         if(option !== 'None'){
             option = this.props.options.filter(item => {
-                return item.value === option;
+                return (item.value || item) === option;
             })[0];
         }
         this.props.onSubmit(option);
@@ -24,7 +24,7 @@ export class Selectinput extends React.Component {
                         <select onChange={this.onChange} value={this.props.option}>
                             <option value='None' key='NoneSelected'>Select an option...</option>>
                             {this.props.options.map((option) =>{
-                                return <option value={option.value} key={option.value}>{option.value}</option>
+                                return <option value={option.value || option} key={option.value || option}>{option.value || option}</option>
                             })}
                         </select>
                     </form>
