@@ -17,12 +17,7 @@ const languages = {
   }
 };
 
-type Props = {
-  i18n: Object,
-  t: Function
-};
-
-class LanguageDropdown extends Component<Props> {
+class LanguageDropdown extends Component {
   constructor() {
     super();
     this.state = { language: this.getLanguage() };
@@ -31,9 +26,7 @@ class LanguageDropdown extends Component<Props> {
   getLanguage = () => localStorage.getItem('i18nextLng') || 'en';
 
   onLanguageSelect = nextLanguage => {
-    const { i18n } = this.props;
     toast.dismiss();
-    i18n.changeLanguage(nextLanguage);
     this.setState({
       language: this.getLanguage()
     });

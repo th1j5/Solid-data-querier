@@ -1,7 +1,6 @@
 import React from 'react';
 import { IconLookup, IconDefinition, findIconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { withTranslation } from 'react-i18next';
 
 const Footer = (props) => {
   const githubIcon: IconLookup = { prefix: 'fab', iconName: 'github' };
@@ -49,4 +48,4 @@ const Footer = (props) => {
   );
 };
 
-export default withTranslation()(Footer);
+export default Footer;

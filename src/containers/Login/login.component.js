@@ -1,22 +1,20 @@
 /* eslint-disable constructor-super */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { ProviderLogin } from '@inrupt/solid-react-components';
 import { LoginWrapper, LoginPanel, PanelBody, LoginTitle } from './login.style';
 import { CenterContainer } from '@util-components';
 import { Provider } from '@services';
 
 const LoginComponent = () => {
-  const { t } = useTranslation();
   return (
     <LoginWrapper data-testid="login-wrapper">
       <CenterContainer>
-        <h1 data-testid="title">{t('login.title')}</h1>
+        <h1 data-testid="title">{'Log in to your solid pod'}</h1>
         <LoginPanel className="login-panel">
           <PanelBody className="panel-body">
             <Link className="ids-link-filled ids-link-filled--primary" to="/register">
-              {t('login.register')}
+              {'Register'}
             </Link>
             <a
               href="https://solid.inrupt.com/get-a-solid-pod"
@@ -24,24 +22,24 @@ const LoginComponent = () => {
               target="_blank"
               className="link"
             >
-              {t('login.solidHelp')}
+              {'Get Help'}
             </a>
             <LoginTitle data-testid="login-title">
-              <span>{t('login.loginTitle')}</span>
+              <span>{'Log in'}</span>
             </LoginTitle>
             <ProviderLogin
-              selectPlaceholder={t('login.selectPlaceholder')}
-              inputPlaholder={t('login.inputPlaholder')}
-              formButtonText={t('login.formButtonText')}
-              btnTxtWebId={t('login.btnTxtWebId')}
-              btnTxtProvider={t('login.btnTxtProvider')}
+              selectPlaceholder={'Pick your provider'}
+              inputPlaholder={'...'}
+              formButtonText={'Submit'}
+              btnTxtWebId={'Log in with your webID'}
+              btnTxtProvider={'Log in with your provider'}
               className="provider-login-component"
               callbackUri={`${window.location.origin}/iot-graph`}
               errorsText={{
-                unknown: t('login.errors.unknown'),
-                webIdNotValid: t('login.errors.webIdNotValid'),
-                emptyProvider: t('login.errors.emptyProvider'),
-                emptyWebId: t('login.errors.emptyWebId')
+                unknown: 'Unknown',
+                webIdNotValid: 'webId not valid',
+                emptyProvider: 'No provider was submitted',
+                emptyWebId: 'No webId was provided'
               }}
               theme={{
                 buttonLogin: 'ids-link',

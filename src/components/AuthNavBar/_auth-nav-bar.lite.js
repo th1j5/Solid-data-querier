@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { NavBar, Notification } from '@components';
-import { useTranslation } from 'react-i18next';
 import { NavBarContainer } from './children';
-import { LanguageDropdown } from '@util-components';
 import { ldflexHelper, errorToaster } from '@utils';
 import { NavigationItems } from '@constants';
 
@@ -12,8 +10,7 @@ type Props = {
 
 const AuthNavBar = React.memo((props: Props) => {
   const [inboxes, setInbox] = useState([]);
-  const { t, i18n } = useTranslation();
-  const navigation = NavigationItems.map(item => ({ ...item, label: t(item.label) }));
+  const navigation = NavigationItems.map(item => ({ ...item, label: item.label }));
   const { webId } = props;
   /**
    * Looks for all of the inbox containers in the pod and sets inboxes state
@@ -29,7 +26,7 @@ const AuthNavBar = React.memo((props: Props) => {
       if (globalInbox) {
         inboxes = [
           ...inboxes,
-          { path: globalInbox, inboxName: t('navBar.notifications.global'), shape: 'default' }
+          { path: globalInbox, inboxName: 'navBar.notifications.global', shape: 'default' }
         ];
       }
       /**
@@ -37,16 +34,16 @@ const AuthNavBar = React.memo((props: Props) => {
        * know how fix it.
        */
       if (inboxes.length === 0)
-        errorToaster(t('noInboxUser.message'), 'Error', {
-          label: t('noInboxUser.link.label'),
-          href: t('noInboxUser.link.href')
+        errorToaster('noInboxUser.message', 'Error', {
+          label: 'noInboxUser.link.label',
+          href: 'noInboxUser.link.href'
         });
       setInbox(inboxes);
     } catch (error) {
       /**
        * Show general errors
        */
-      errorToaster(error.message, t('navBar.notifications.fetchingError'));
+      errorToaster(error.message, 'navBar.notifications.fetchingError');
     }
   }, [webId, inboxes]);
 
@@ -63,15 +60,11 @@ const AuthNavBar = React.memo((props: Props) => {
       sticky
       toolbar={[
         {
-          component: () => <LanguageDropdown {...{ t, i18n }} />,
-          id: 'language'
-        },
-        {
           component: () => <Notification {...{ webId, inbox: inboxes }} />,
           id: 'notifications'
         },
         {
-          component: props => <NavBarContainer {...{ t, i18n, webId, history, ...props }} />,
+          component: props => <NavBarContainer {...{webId, history, ...props }} />,
           id: 'profile'
         }
       ]}

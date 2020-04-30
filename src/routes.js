@@ -7,22 +7,10 @@ import {
   Register,
   PageNotFound,
   RegistrationSuccess,
-  FormModelConverter,
-  FormModelRenderer,
   IoTGraph
 } from './containers';
 
 const privateRoutes = [
-  {
-    id: 'formmodelconverter',
-    path: '/formmodel/converter',
-    component: FormModelConverter
-  },
-  {
-    id: 'formmodelrenderer',
-    path: '/formmodel/renderer',
-    component: FormModelRenderer
-  },
   {
     id: 'iot-graph',
     path: '/iot-graph',
