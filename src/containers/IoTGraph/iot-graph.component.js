@@ -1,6 +1,5 @@
 import React from 'react';
 import { errorToaster } from '@utils';
-import {Namespace} from 'rdflib';
 import {retrieveStore, getDevices, getObjects, getResources, getData} from './utils';
 import {Graph, Textinput, Selectinput, SecondaryData} from './components';
 import{
@@ -8,11 +7,6 @@ import{
     IoTGraphContainer,
     Header
 } from './iot-graph.style';
-
-// Introducing our namespaces
-var LWM2M = Namespace("https://florsanders.inrupt.net/public/ontologies/omalwm2m.ttl#");    // Self-published omalwm2m ontology
-var RDF = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");                         // Used mainly for RDF('type')
-var XSD = Namespace("http://www.w3.org/2001/XMLSchema#");                                   // Used for its units
 
 export class IoTGraph extends React.Component {
     // Program state

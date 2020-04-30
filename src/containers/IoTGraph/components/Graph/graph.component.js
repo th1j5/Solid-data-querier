@@ -5,7 +5,7 @@ import {GraphWrapper} from './graph.style';
 export class Graph extends React.Component {
     // Creating reference to insert in the page
     getOptions = () => {
-        if(this.props.sensordata != undefined){
+        if(this.props.sensordata !== undefined){
             var timestamps = this.props.sensordata.value.map(data => data.timestamp);
             var measurements = this.props.sensordata.value.map(data => parseFloat(data.value));
             var unit = this.props.otherdata.filter(data => data.type === 'SensorUnits')[0].value;
@@ -82,7 +82,7 @@ export class Graph extends React.Component {
     }
 
     render(){
-        if(this.props.sensordata != undefined && this.props.sensordata.length != 0){
+        if(this.props.sensordata !== undefined && this.props.sensordata.length !== 0){
             return(
                 <GraphWrapper>
                     <h4>Graph</h4>

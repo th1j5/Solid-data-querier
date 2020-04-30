@@ -4,7 +4,7 @@ import {graph, Fetcher, parse, Namespace} from 'rdflib';
 // Introducing our namespaces (Used for querying the data!)
 var LWM2M = Namespace("https://florsanders.inrupt.net/public/ontologies/omalwm2m.ttl#");    // Self-published omalwm2m ontology
 var RDF = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");                         // Used mainly for RDF('type')
-var XSD = Namespace("http://www.w3.org/2001/XMLSchema#");                                   // Used for its units
+//var XSD = Namespace("http://www.w3.org/2001/XMLSchema#");                                   // Used for its units
 
 // Function which creates store, fetches the database and saves it to the store
 export function retrieveStore(url){
@@ -83,7 +83,7 @@ export function getData(store, resources){
         }
     }
     // If by now the sensorData array isn't empty, we'll add it to the data array
-    if(sensorData.length != 0){
+    if(sensorData.length !== 0){
         // Making sure the data is sorted by date!
         data.push({type:'SensorValues', value:sortByDate(sensorData)});
     }

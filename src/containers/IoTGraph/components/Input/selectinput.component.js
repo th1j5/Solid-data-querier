@@ -6,7 +6,7 @@ export class Selectinput extends React.Component {
     // Update the application state if the selection contents changes + pass it on to the master program
     onChange = (e) => {
         let option = e.target.value;
-        if(option != 'None'){
+        if(option !== 'None'){
             option = this.props.options.filter(item => {
                 return item.value === option;
             })[0];
@@ -16,7 +16,7 @@ export class Selectinput extends React.Component {
 
     // Visual component of our application, which should be shown (textbox + subit button)
     render(){
-        if(this.props.options.length != 0){
+        if(this.props.options.length !== 0){
             return(
                 <Selectinputwrapper>
                     <p>{this.props.label}:</p>

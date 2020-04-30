@@ -5,14 +5,14 @@ export const NavigationItems = [
   {
     id: 'iot-graph',
     icon: '/img/icon/things.svg',
-    label: 'navBar.iot-graph',
+    label: 'IoT Graph',
     to: '/iot-graph'
   }
 ];
 
 export const ProfileOptions = [
   {
-    label: 'navBar.logOut',
+    label: 'Log Out',
     onClick: 'logOut',
     icon: 'lock'
   }

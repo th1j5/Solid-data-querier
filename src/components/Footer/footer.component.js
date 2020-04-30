@@ -3,12 +3,7 @@ import { IconLookup, IconDefinition, findIconDefinition } from '@fortawesome/fon
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { withTranslation } from 'react-i18next';
 
-type Props = {
-  t: Function
-};
-
-const Footer = (props: Props) => {
-  const { t } = props;
+const Footer = (props) => {
   const githubIcon: IconLookup = { prefix: 'fab', iconName: 'github' };
   const githubIconDef: IconDefinition = findIconDefinition(githubIcon);
 
