@@ -34,17 +34,9 @@ export const UserName = styled.span`
   margin-left: 10px;
 `;
 
-type Props = {
-  history: Object,
-  t: Function,
-  open: Boolean,
-  customClass: String,
-  webId: String
-};
-
 let beforeContext;
 
-class NavBarProfile extends Component<Props> {
+class NavBarProfile extends Component {
   constructor(props) {
     super(props);
     this.state = { image: '/img/icon/empty-profile.svg' };
@@ -72,15 +64,6 @@ class NavBarProfile extends Component<Props> {
       }
     }
   }
-
-  // eslint-disable-next-line react/destructuring-assignment
-  profileRedirect = () => this.props.history.push('/profile');
-
-  // eslint-disable-next-line react/destructuring-assignment
-  formModelRenderRedirect = () => this.props.history.push('/formModel/renderer');
-
-  // eslint-disable-next-line react/destructuring-assignment
-  formModelConvertRedirect = () => this.props.history.push('/formModel/converter');
 
   onImageLoaded = async () => this.setState({ imageLoaded: true });
 
@@ -115,12 +98,12 @@ class NavBarProfile extends Component<Props> {
   };
 
   render() {
-    const { t, open, customClass } = this.props;
+    const { open, customClass } = this.props;
     const { imageLoaded, image } = this.state;
 
     const profileOpts = ProfileOptions.map(item => ({
       ...item,
-      label: t(item.label),
+      label: item.label,
       onClick: this[item.onClick]
     }));
 

@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { withTranslation } from 'react-i18next';
 import { GradientBackground, CenterContainer } from '@util-components';
 import { RegisterWrapper, RegisterPanel, PanelHeader, PanelBody, Actions } from './register.style';
 import { ProviderItem } from './children';
@@ -127,4 +126,4 @@ class RegisterComponent extends Component<Props, State> {
 }
 
 export { RegisterComponent };
-export default withTranslation()(RegisterComponent);
+export default RegisterComponent;
