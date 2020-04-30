@@ -5,7 +5,7 @@ import {TextinputWrapper} from './textinput.style';
 export class Textinput extends React.Component {
     // Save contents of the textbox as application state
     state = {
-        url:''
+        url: this.props.default
     }
 
     // Update the application state if the textbox contents changes

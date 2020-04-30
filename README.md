@@ -9,7 +9,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+!Important: Don't forget to run npm install after cloning to get the dependencies in order.
+
 - `npm start`: Starts local webserver on port 3000 through which the webapp can be tested during development.
 - `npm test`: runs available tests (would be nice if we'd used test-driven development).
 - `npm run build`: Builds the app for production in the build folder, minifies everything and makes it ready for deployment.
 - `npm run eject`: This will give you access to all the fine configuration of the tools behind the app builder, ejects the app builder and replaces it by its transitive dependencies. (**one way operation! Not recommended.**)
+
+## Related repositories
+- [Solid data Saver](https://github.ugent.be/fpsander/soliddatasaver): This is the repository containing the code for interfacing with the LeShan LwM2M server, converting incoming data to RDF using RDF-mapper and saving them to the solid datapod.

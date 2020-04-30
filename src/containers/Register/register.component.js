@@ -11,8 +11,7 @@ type Register = {
 };
 
 type Props = {
-  providers: Array<Provider>,
-  t: Function
+  providers: Array<Provider>
 };
 
 type State = {
@@ -67,17 +66,17 @@ class RegisterComponent extends Component<Props, State> {
       canContinue,
       register: { provider }
     } = this.state;
-    const { providers, t } = this.props;
+    const { providers } = this.props;
 
     return (
       <GradientBackground>
         <CenterContainer>
           <RegisterWrapper data-testid="register-wrapper">
-            <h1 data-testid="title">{t('register.title')}</h1>
+            <h1 data-testid="title">{'Register'}</h1>
             <form onSubmit={this.onSubmit}>
               <RegisterPanel className="register-panel">
                 <PanelHeader className="panel-header" data-testid="panel-header">
-                  <h2>{t('register.step1Title')}</h2>
+                  <h2>{'Step 1'}</h2>
                   <div className="progress-bar" />
                 </PanelHeader>
                 <PanelBody className="panel-body">
@@ -87,10 +86,10 @@ class RegisterComponent extends Component<Props, State> {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {t('register.whatIsAProvider')}
+                      {'What is a provicer?'}
                     </a>
                     <Link to="/login" className="a-with-spacing">
-                      {t('register.alreadySolid')}
+                      {'Already on solid?'}
                     </Link>
                     <ul>
                       {providers.map(providerData => (
@@ -113,7 +112,7 @@ class RegisterComponent extends Component<Props, State> {
                     type="submit"
                     disabled={!canContinue}
                   >
-                    {t('register.next')}
+                    {'Next'}
                   </button>
                 </Actions>
               </RegisterPanel>

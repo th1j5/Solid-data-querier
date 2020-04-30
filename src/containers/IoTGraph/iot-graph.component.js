@@ -20,12 +20,12 @@ export class IoTGraph extends React.Component {
         object: 'None',
         sensordata: [],
         otherdata: []
-    }
+    }      
 
     // Callback function after the database URL is commited
     onReceiveURL = (url) => {
         // Save URL to the program state
-        this.setState({url, devices: [], objects: []}, () => {
+        this.setState({url, devices: [], objects: [], sensordata: [], otherdata: [], device: 'None', object: 'None'}, () => {
             // Fetch the database into a store
             retrieveStore(url).then(({store, fetcher}) => {
                 // Save the store and fetcher into the program state
@@ -84,7 +84,7 @@ export class IoTGraph extends React.Component {
                         <p>Start by entering the URL of the location where the database you wish to visualize is stored.</p>
                         <p>From there, you can pick from the available devices and its objects which resource needs to be visualized.</p>
                     </Header>
-                    <Textinput onSubmit = {this.onReceiveURL}></Textinput>
+                    <Textinput onSubmit = {this.onReceiveURL} default = {`https://${this.props.webId.split('/')[2]}/private/leshandata.ttl`}></Textinput>
                     <Selectinput onSubmit = {this.onReceiveDevice} options={this.state.devices} label="Pick a device" option={this.state.device.value || this.state.device}></Selectinput>
                     <Selectinput onSubmit = {this.onReceiveObject} options={this.state.objects} label="Pick an object" option={this.state.object.value || this.state.object}></Selectinput>
                     <Graph sensordata = {this.state.sensordata} otherdata = {this.state.otherdata} object={this.state.object}></Graph>
