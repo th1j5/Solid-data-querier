@@ -10,24 +10,27 @@ import {
   IoTGraph
 } from './containers';
 
+const development = false;
+const basename = development ? '' : '/Solid-IoT';
+
 const privateRoutes = [
   {
     id: 'iot-graph',
-    path: '/iot-graph',
+    path: basename + '/iot-graph',
     component: IoTGraph
   }
 ];
 
 const Routes = () => (
-  <Router basename={'/Solid-IoT'}>
+  <Router basename={basename}>
     <Fragment>
       <Switch>
-        <NotLoggedInLayout component={Login} path="/login"  />
-        <NotLoggedInLayout component={Register} path="/register"  />
-        <NotLoggedInLayout path="/register/success" component={RegistrationSuccess}  />
-        <PublicLayout path="/404" component={PageNotFound}  />
-        <Redirect from="/" to="/login"  />
-        <PrivateLayout path="/" routes={privateRoutes} />
+        <NotLoggedInLayout component={Login} path={basename + "/login"} exact />
+        <NotLoggedInLayout component={Register} path={basename + "/register"} exact />
+        <NotLoggedInLayout path={basename + "/register/success"} component={RegistrationSuccess} exact />
+        <PublicLayout path={basename + "/404"} component={PageNotFound} exact />
+        <Redirect from={basename + "/"} to={basename + "/iot-graph"} exact />
+        <PrivateLayout path={basename + "/"} routes={privateRoutes} />
         <Redirect to="/404" />
       </Switch>
     </Fragment>
