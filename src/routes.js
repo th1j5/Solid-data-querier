@@ -10,8 +10,6 @@ import {
   IoTGraph
 } from './containers';
 
-const basename = process.env.PUBLIC_URL; // Run on subdirectory?
-
 const privateRoutes = [
   {
     id: 'iot-graph',
@@ -21,16 +19,16 @@ const privateRoutes = [
 ];
 
 const Routes = () => (
-  <Router basename={basename}>
+  <Router>
     <Fragment>
       <Switch>
         <NotLoggedInLayout component={Login} path={ "/login"} exact />
         <NotLoggedInLayout component={Register} path={ "/register"} exact />
         <NotLoggedInLayout path={ "/register/success"} component={RegistrationSuccess} exact />
         <PublicLayout path={"/404"} component={PageNotFound} exact />
-        <Redirect from={"/"} to={basename + "/iot-graph"} exact />
+        <Redirect from={"/"} to={"/iot-graph"} exact />
         <PrivateLayout path={ "/"} routes={privateRoutes} />
-        <Redirect to={basename + "/404"} />
+        <Redirect to={"/404"} />
       </Switch>
     </Fragment>
   </Router>
