@@ -5,7 +5,8 @@ import { successToaster } from '@utils';
 
 export class CopyData extends React.Component{
     // Copy data functionality + success messages once copied
-    onCopy = () => {
+    onCopy = (e) => {
+        e.preventDefault();
         navigator.clipboard.writeText(this.props.data.map(elem => JSON.stringify(elem)));
         successToaster('Copied succesfully')
     }
