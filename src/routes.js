@@ -28,9 +28,9 @@ const Routes = () => (
         <NotLoggedInLayout component={Register} path={ "/register"} exact />
         <NotLoggedInLayout path={ "/register/success"} component={RegistrationSuccess} exact />
         <PublicLayout path={"/404"} component={PageNotFound} exact />
-        <Redirect from={"/"} to={ "/iot-graph"} exact />
+        <Redirect from={"/"} to={basename + "/iot-graph"} exact />
         <PrivateLayout path={ "/"} routes={privateRoutes} />
-        <Redirect to={ "/404"} />
+        <Redirect to={basename + "/404"} />
       </Switch>
     </Fragment>
   </Router>
