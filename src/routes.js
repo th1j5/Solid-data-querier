@@ -26,7 +26,7 @@ const Routes = () => (
         <NotLoggedInLayout component={Register} path="/register"  />
         <NotLoggedInLayout path="/register/success" component={RegistrationSuccess}  />
         <PublicLayout path="/404" component={PageNotFound}  />
-        <Redirect from="/" to="/iot-graph"  />
+        <Redirect from="/" to="/login"  />
         <PrivateLayout path="/" routes={privateRoutes} />
         <Redirect to="/404" />
       </Switch>
