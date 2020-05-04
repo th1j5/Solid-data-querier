@@ -10,8 +10,7 @@ import {
   IoTGraph
 } from './containers';
 
-const development = false;
-const basename = development ? '' : '/Solid-IoT';
+const basename = process.env.PUBLIC_URL; // Run on subdirectory?
 
 const privateRoutes = [
   {
@@ -22,7 +21,7 @@ const privateRoutes = [
 ];
 
 const Routes = () => (
-  <Router basename={basename}>
+  <Router>
     <Fragment>
       <Switch>
         <NotLoggedInLayout component={Login} path={basename + "/login"} exact />
