@@ -19,7 +19,7 @@ const privateRoutes = [
 ];
 
 const Routes = () => (
-  <Router>
+  <Router basename={'/Solid-IoT'}>
     <Fragment>
       <Switch>
         <NotLoggedInLayout component={Login} path="/login" exact />
