@@ -2,7 +2,7 @@ import SolidAuth from 'solid-auth-client';
 import {graph, Fetcher, parse, Namespace} from 'rdflib';
 
 // Introducing our namespaces (Used for querying the data!)
-var LWM2M = Namespace("https://florsanders.inrupt.net/public/ontologies/omalwm2m.ttl#");    // Self-published omalwm2m ontology
+var LWM2M = Namespace("https://iotsolidugent.inrupt.net/public/ontologies/omalwm2m.owl.ttl#");    // Self-published omalwm2m ontology
 var RDF = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");                         // Used mainly for RDF('type')
 //var XSD = Namespace("http://www.w3.org/2001/XMLSchema#");                                   // Used for its units
 
