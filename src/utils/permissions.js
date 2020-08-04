@@ -24,13 +24,13 @@ export const checkPermissions = async (webId, errorMessage) => {
    * Get modes permissions from solid-react-components
    */
   const permissions = AccessControlList.MODES;
-  const { APPEND, READ, WRITE, CONTROL } = permissions;
+  const { APPEND, READ, WRITE } = permissions;
 
   // If we are missing permissions that the app requires, display an error message with a Learn More link
   if (
     userApp === null ||
     userApp.permissions === null ||
-    !checkAppPermissions(userApp.permissions, [APPEND, READ, WRITE, CONTROL])
+    !checkAppPermissions(userApp.permissions, [APPEND, READ, WRITE])
   ) {
     errorToaster(errorMessage.message, errorMessage.title, {
       label: errorMessage.label,
